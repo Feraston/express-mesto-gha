@@ -27,6 +27,9 @@ mongoose.connect("mongodb://localhost:27017/mestodb", {
 
 app.use("/users", usersRout);
 app.use("/cards", cardsRout);
+app.use("/*", (req, res) => {
+  res.status(404).send({ message: "404 — запрашиваемый ресурс не найден" });
+});
 
 app.listen(PORT, (err) => {
   if (err) {
