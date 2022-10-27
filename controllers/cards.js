@@ -1,9 +1,10 @@
 const Card = require("../models/cards");
+const { handleError } = require("../utils/errors");
 
 module.exports.getCards = (req, res) => {
   Card.find({})
     .then((user) => res.send({ data: user }))
-    .catch((err) => console.log(err));
+    .catch((err) => handleError(res, err));
 };
 
 module.exports.createCard = (req, res) => {
@@ -11,14 +12,16 @@ module.exports.createCard = (req, res) => {
 
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
-    .catch((err) => console.log(err));
+    .catch((err) => handleError(res, err));
 };
 
 module.exports.deleteCard = (req, res) => {
   Card.findByIdAndRemove(req.params.cardId)
+    .orFail(new Error("notValidId"))
     .then((card) => res.send({ data: card }))
-    .catch((err) => console.log(err));
+    .catch((err) => handleError(res, err));
 };
+
 module.exports.putLike = (req, res) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
@@ -27,9 +30,11 @@ module.exports.putLike = (req, res) => {
     },
     { new: true },
   )
+    .orFail(new Error("notValidId"))
     .then((card) => res.send({ data: card }))
-    .catch((err) => console.log(err));
+    .catch((err) => handleError(res, err));
 };
+
 module.exports.deleteLike = (req, res) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
@@ -38,6 +43,7 @@ module.exports.deleteLike = (req, res) => {
     },
     { new: true },
   )
+    .orFail(new Error("notValidId"))
     .then((card) => res.send({ data: card }))
-    .catch((err) => console.log(err));
+    .catch((err) => handleError(res, err));
 };
