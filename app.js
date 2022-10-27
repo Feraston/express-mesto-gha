@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 
 const usersRout = require("./routes/users");
+const cardsRout = require("./routes/cards");
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -25,6 +26,7 @@ mongoose.connect("mongodb://localhost:27017/mestodb", {
 });
 
 app.use("/users", usersRout);
+app.use("/cards", cardsRout);
 
 app.listen(PORT, (err) => {
   if (err) {
