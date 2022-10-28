@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/Feraston/express-mesto-gha.git"
   },
-  "author": "",
+  "author": "Roman Priluk",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Feraston/express-mesto-gha/issues"

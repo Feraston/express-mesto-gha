@@ -1,5 +1,5 @@
-const User = require("../models/users");
-const { handleError } = require("../utils/errors");
+const User = require('../models/users');
+const { handleError } = require('../utils/errors');
 
 module.exports.getUsers = (req, res) => {
   User.find({})
@@ -9,7 +9,7 @@ module.exports.getUsers = (req, res) => {
 
 module.exports.getUser = (req, res) => {
   User.findById(req.params.userId)
-    .orFail(new Error("notValidId"))
+    .orFail(new Error('notValidId'))
     .then((user) => res.send({ data: user }))
     .catch((err) => handleError(res, err));
 };
@@ -32,7 +32,7 @@ module.exports.updateUser = (req, res) => {
       runValidators: true,
     },
   )
-    .orFail(new Error("notValidId"))
+    .orFail(new Error('notValidId'))
     .then((user) => res.send({ data: user }))
     .catch((err) => handleError(res, err));
 };
@@ -48,7 +48,7 @@ module.exports.updateUserAvatar = (req, res) => {
       runValidators: true,
     },
   )
-    .orFail(new Error("notValidId"))
+    .orFail(new Error('notValidId'))
     .then((user) => res.send({ data: user }))
     .catch((err) => handleError(res, err));
 };
